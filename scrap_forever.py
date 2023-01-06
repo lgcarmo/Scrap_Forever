@@ -15,6 +15,9 @@ parser=argparse.ArgumentParser (description='Requests.')
 parser.add_argument ('-t', dest='scrap_url', help='https://site.com.br', required=True)
 parser.add_argument ('-o', '--output', type=argparse.FileType(mode='w'), dest='scrap_out', help='Salva data.', required=True)
 parser.add_argument ('-p', '--proxy',  dest='scrap_proxy', help='-p http://127.0.0.1:8080', required=False)
+parser.add_argument ('-a', '--auth',  dest='scrap_auth', help='-a Besic aqsdiqjewqd==', required=False)
+parser.add_argument ('-c', '--cookie',  dest='scrap_cookie', help='-c PHPSESSION=cookie', required=False)
+parser.add_argument ('--user-agent',  dest='scrap_user_agent', help='--user-agent Mozilla/5.0', required=False)
 
 args=parser.parse_args()
 
@@ -27,6 +30,8 @@ if not len(argv) > 1:
         -t Target to web scraping (Ex. -t https://site.com)
         -o output file (Ex. -o output.txt )
         -p/--proxy set proxy to request (Ex. -p http://127.0.0.1:8080)
+        -c/--cookie set cookie (Ex. -c Authorization: aqsdiqjewqd==)
+
         
         Usage:
         
@@ -41,13 +46,19 @@ first_url = args.scrap_url
 
 #request and return html
 def resq_urls(url_x):
+    headers = {
+        'authorization': f'{args.scrap_auth}',
+        'cookie': f'{args.scrap_cookie}',
+        'user-agent': f'{args.scrap_user_agent}'
+    }
     if args.scrap_proxy is None:
-        response = requests.get(url_x, verify=False)
+
+        response = requests.get(url_x, verify=False, headers=headers)
         return(response.text)
 
     elif args.scrap_proxy is not None:
         proxy = {'http': f'{args.scrap_proxy}','https': f'{args.scrap_proxy}'}
-        response = requests.get(url_x, proxies=proxy, verify=False)
+        response = requests.get(url_x, proxies=proxy, verify=False, headers=headers)
         return (response.text)
 
 
