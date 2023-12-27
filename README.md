@@ -10,11 +10,11 @@ Get all links in all pages in one application
 
 ## Principais opções
 
-* -t SCRAP_URL          https://site.com.br
+* `-t` SCRAP_URL          https://site.com.br
 
-* -o SCRAP_OUT, --output SCRAP_OUT Salva data
+* `-o` SCRAP_OUT, --output SCRAP_OUT Salva data
 
-* -p SCRAP_PROXY, --proxy SCRAP_PROXY  (-p http://127.0.0.1:8080)
+* `-p` SCRAP_PROXY, --proxy SCRAP_PROXY  (-p http://127.0.0.1:8080)
 
 ### USAGE
 
